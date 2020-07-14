@@ -59,21 +59,34 @@ public class ChatActivity extends AppCompatActivity {
         peerUserImage=getIntent().getExtras().get("profile_pic").toString();
         InitializingFields();
 
+
         username.setText(peerUserName);
         Picasso.get().load(peerUserImage).into(image);
 
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                recyclerView.smoothScrollToPosition(recyclerView.getAdapter().getItemCount());
                 sendMessage();
             }
         });
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        messagesList.clear();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        messagesList.clear();
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
-
         rootRef.child("Messages").child(currentUserId)
                 .child(peerUserId)
                .addChildEventListener(new ChildEventListener() {
@@ -136,11 +149,8 @@ public class ChatActivity extends AppCompatActivity {
             rootRef.updateChildren(details).addOnCompleteListener(new OnCompleteListener() {
                 @Override
                 public void onComplete(@NonNull Task task) {
-                    if(task.isSuccessful())
+                    if(!task.isSuccessful())
                     {
-                        Toast.makeText(ChatActivity.this, "Message sent", Toast.LENGTH_SHORT).show();
-                    }
-                    else{
                         Toast.makeText(ChatActivity.this, "Something Failed", Toast.LENGTH_SHORT).show();
                     }
                 }

@@ -16,13 +16,16 @@
         android:layout_width="match_parent"
         android:background="@drawable/back"
         android:layout_height="match_parent"
+        android:layout_above="@+id/linearChat"
         android:layout_below="@+id/chat_tool_bar"
         />
 
     <LinearLayout
+        android:id="@+id/linearChat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:background="@android:color/background_light"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:weightSum="5"

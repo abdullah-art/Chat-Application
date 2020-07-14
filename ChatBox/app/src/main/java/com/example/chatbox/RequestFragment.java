@@ -112,7 +112,7 @@ public class RequestFragment extends Fragment {
                         if(dataSnapshot.exists())
                         {
                             String status=dataSnapshot.getValue().toString();
-                            if(status.equals("received"))
+                            if(!status.equals("sent"))
                             {
                                 userRef.child(uid).addValueEventListener(new ValueEventListener() {
                                     @Override
@@ -192,6 +192,11 @@ public class RequestFragment extends Fragment {
                                     }
                                 });
                             }
+                            else{
+                                requestViewHolder.itemView.findViewById(R.id.template).setVisibility(View.GONE);
+                            }
+
+
                         }
                     }
 

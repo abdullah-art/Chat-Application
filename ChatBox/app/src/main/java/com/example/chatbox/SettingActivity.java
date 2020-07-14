@@ -35,11 +35,13 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.util.HashMap;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class SettingActivity extends AppCompatActivity {
 
     private Button updateBtn;
     private EditText username,status;
-    private ImageView profile_pic;
+    private CircleImageView profile_pic;
     private FirebaseAuth firebaseAuth;
     private String currentUserId;
     private DatabaseReference databaseReference;
@@ -116,9 +118,6 @@ public class SettingActivity extends AppCompatActivity {
                             Picasso.get().load(uri).into(profile_pic);
 
                         }
-                        else{
-                            Toast.makeText(SettingActivity.this, "Please set your name!", Toast.LENGTH_SHORT).show();
-                        }
                     }
 
                     @Override
@@ -132,7 +131,7 @@ public class SettingActivity extends AppCompatActivity {
         updateBtn=(Button)findViewById(R.id.update_button);
         username=(EditText)findViewById(R.id.username);
         status=(EditText)findViewById(R.id.about);
-        profile_pic=(ImageView)findViewById(R.id.profile_image);
+        profile_pic=findViewById(R.id.profile_image);
     }
 
     private void sendUserToMainActivity() {
